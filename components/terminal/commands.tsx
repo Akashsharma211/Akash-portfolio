@@ -2,7 +2,6 @@
 
 import React from "react";
 import dynamic from "next/dynamic";
-import { MINECRAFT_MODELS, type MinecraftKind } from "@/components/three/constants";
 import {
   getProject,
   getAllProjects,
@@ -14,11 +13,94 @@ import {
   getHobbies
 } from "@/lib/data";
 
-// Lazy load the 3D component with no SSR to avoid blocking hydration/initial render
-const DynamicMinecraftSpawn = dynamic(() => import("./MinecraftSpawn"), {
-  ssr: false,
-  loading: () => <div className="text-zinc-500 text-sm">Loading 3D Module...</div>
-});
+const EASTER_EGG_QUOTES = [
+  "In hackathons, sleep is just a theoretical concept.",
+  "Debugging: Being the detective in a crime movie where you are also the murderer.",
+  "Talk is cheap. Show me the code. — Linus Torvalds",
+  "Git commit -m 'Fixed it for real this time (part 7)'",
+  "It works on my machine... so pack your machine, we're shipping it!",
+  "First, solve the problem. Then, write the code. — John Johnson",
+  "Simplicity is prerequisite for reliability. — Edsger W. Dijkstra",
+];
+
+const SpawnUniverse = () => {
+  const [quoteIndex] = React.useState(() => Math.floor(Math.random() * EASTER_EGG_QUOTES.length));
+
+  return (
+    <div className="space-y-3 font-mono text-sm py-2">
+      {/* ASCII Cyber Banner */}
+      <pre className="text-emerald-400 text-[10px] sm:text-xs leading-[13px] select-none overflow-x-auto">
+{`   ___    __ __ ___    ____  __  __   __  __ _   __ ____ _   __ ____ ____   _____ ______
+  /   |  / // //   |  / __/ / / / /  / / / // | / //  _// | / // __// __ \\ / ___// ____/
+ / /| | / ,<  / /| | _\\ \\  / /_/ /  / / / //  |/ / _/ / /  |/ // _/ / /_/ /_\\__ \\/ __/   
+/_/ |_|/_/|_|/_/ |_|/___/  \\____/   \\____//_/|_//___/ /_/|_//___/ \\____//____//_____/   `}
+      </pre>
+
+      {/* Terminal System Diagnostics */}
+      <div className="border border-emerald-500/30 bg-emerald-950/20 rounded-xl p-3.5 space-y-2">
+        <div className="flex items-center justify-between border-b border-emerald-500/20 pb-2">
+          <div className="text-emerald-300 font-bold flex items-center gap-2">
+            <span className="inline-block w-2 h-2 rounded-full bg-emerald-400 animate-ping" />
+            SYS-CORE // DIAGNOSTICS
+          </div>
+          <div className="text-zinc-400 text-xs">STATUS: ONLINE</div>
+        </div>
+
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-x-6 gap-y-1 text-xs">
+          <div><span className="text-zinc-400">Target Host:</span> <span className="text-zinc-200">akash@portfolio-v2</span></div>
+          <div><span className="text-zinc-400">Kernel:</span> <span className="text-zinc-200">FullStack-AI 6.8.0-akash</span></div>
+          <div><span className="text-zinc-400">Academic Score:</span> <span className="text-emerald-400 font-semibold">8.62 / 10.0 CGPA</span></div>
+          <div><span className="text-zinc-400">Institution:</span> <span className="text-zinc-200">GGSIPU (GTB4CEC)</span></div>
+          <div><span className="text-zinc-400">Orchestration:</span> <span className="text-zinc-200">Gemini 3.1 Flash + FastAPI</span></div>
+          <div><span className="text-zinc-400">Runtime:</span> <span className="text-zinc-200">Next.js 16 (Turbopack)</span></div>
+        </div>
+      </div>
+
+      {/* Secret Achievements & Trophies */}
+      <div className="border border-purple-500/30 bg-purple-950/20 rounded-xl p-3.5 space-y-2">
+        <div className="text-purple-300 font-bold flex items-center gap-2 border-b border-purple-500/20 pb-2">
+          <span>🏆</span> UNLOCKED ACHIEVEMENTS &amp; TROPHIES
+        </div>
+        <div className="space-y-1.5 text-xs">
+          <div className="flex items-start gap-2">
+            <span className="text-amber-400">🥇</span>
+            <div>
+              <span className="text-zinc-200 font-semibold">Hackathon Top-10 Tier:</span>{" "}
+              <span className="text-zinc-400">Achieved Top-10 placement in 3 major national hackathons across 400+ competing teams.</span>
+            </div>
+          </div>
+          <div className="flex items-start gap-2">
+            <span className="text-blue-400">⚡</span>
+            <div>
+              <span className="text-zinc-200 font-semibold">Hackathon Veteran:</span>{" "}
+              <span className="text-zinc-400">Competed in 8+ offline hackathons, delivering UI, backend, and deployment under tight deadlines.</span>
+            </div>
+          </div>
+          <div className="flex items-start gap-2">
+            <span className="text-emerald-400">🤖</span>
+            <div>
+              <span className="text-zinc-200 font-semibold">Enterprise AI Pipeline:</span>{" "}
+              <span className="text-zinc-400">Architected hybrid LLM PO Extractor with Gemini Flash &amp; PyMuPDF at WAISL Limited.</span>
+            </div>
+          </div>
+          <div className="flex items-start gap-2">
+            <span className="text-purple-400">💬</span>
+            <div>
+              <span className="text-zinc-200 font-semibold">Real-Time Messaging Engine:</span>{" "}
+              <span className="text-zinc-400">Engineered ChatZ WebSocket infrastructure for 30+ staff across departments.</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      {/* Randomized Easter Egg Quote */}
+      <div className="p-3 rounded-lg bg-white/5 border border-white/10 text-xs">
+        <div className="text-zinc-500 text-[11px] uppercase tracking-wider mb-1">💡 Developer Wisdom</div>
+        <div className="text-zinc-300 italic">&ldquo;{EASTER_EGG_QUOTES[quoteIndex]}&rdquo;</div>
+      </div>
+    </div>
+  );
+};
 
 // Lazy load the StarBlade game
 const DynamicStarBladeGame = dynamic(() => import("./StarBladeGame"), {
@@ -98,7 +180,7 @@ export const commands: Record<string, CommandHandler> = {
         <div className="text-green-400">starblade</div>
         <div>Play StarBlade - Space Shooter</div>
         <div className="text-green-400">spawn</div>
-        <div>It&#39;s a secret</div>
+        <div>Akash&#39;s Universe cyber diagnostics &amp; secret trophies</div>
         <div className="text-green-400">clear</div>
         <div>Clear terminal (Ctrl/Cmd+L)</div>
         <div className="text-green-400">zen</div>
@@ -269,12 +351,9 @@ export const commands: Record<string, CommandHandler> = {
     );
   },
 
-  // spawn: random or specific minecraft character
-  spawn: (args) => {
-    const arg = (args[0] || "").toLowerCase();
-    const asKind = (MINECRAFT_MODELS as readonly string[]).includes(arg) ? (arg as MinecraftKind) : null;
-    // Use dynamic component here
-    return <DynamicMinecraftSpawn forcedKind={asKind} />;
+  // spawn: Akash's Universe cyber diagnostics, secret achievements, and wisdom
+  spawn: () => {
+    return <SpawnUniverse />;
   },
 
   // starblade: interactive space shooter game
