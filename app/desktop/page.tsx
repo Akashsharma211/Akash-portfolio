@@ -255,6 +255,7 @@ export default function DesktopOSPage() {
         {!zenMode && (
          <div
           className="absolute z-10"
+          suppressHydrationWarning
           style={{
             left: `${width < 768 ? 20 : responsiveConfig.heroLeft}px`,
             top: `${width < 768 ? 100 : responsiveConfig.heroTop - 40}px`
@@ -264,9 +265,10 @@ export default function DesktopOSPage() {
             <div className="text-white space-y-4 lg:space-y-6">
               {/* Main Name - Responsive Size */}
               <h1
-                className="tracking-tight font-walter font-black"
+                className="tracking-tight font-walter font-black whitespace-nowrap"
+                suppressHydrationWarning
                 style={{
-                  fontSize: width < 768 ? '3rem' : responsiveConfig.heroNameSize,
+                  fontSize: width < 768 ? '2.85rem' : responsiveConfig.heroNameSize,
                   lineHeight: '0.9'
                 }}
               >
@@ -275,17 +277,39 @@ export default function DesktopOSPage() {
 
               {/* Tagline - Responsive */}
               <div
-                className="font-light leading-relaxed"
+                className="font-light leading-relaxed flex flex-col gap-1 md:gap-1.5 max-w-[340px] md:max-w-none text-left"
+                suppressHydrationWarning
                 style={{
-                  fontSize: width < 768 ? '1rem' : responsiveConfig.heroTaglineSize
+                  fontSize: width < 768 ? '0.95rem' : responsiveConfig.heroTaglineSize
                 }}
               >
-                <span className="text-gray-300">I build </span>
-                <span className="text-gray-200 mx-2">digital experiences </span>
-                <span className="text-gray-300">with</span>
-                <br />
-                <span className="text-gray-400">passion, precision and</span>
-                <AnimatedRoleText />
+                {/* Line 1: Desktop shows full phrase, Mobile shows first segment */}
+                <div className="flex items-center text-left">
+                  <span className="text-gray-300">Crafting&nbsp;</span>
+                  <span className="text-gray-200 font-normal">scalable web apps</span>
+                  <span className="hidden md:inline text-gray-200 font-normal">&nbsp;&amp; intelligent platforms</span>
+                </div>
+
+                {/* Mobile Line 2: Second segment only on mobile */}
+                <div className="flex md:hidden items-center text-left">
+                  <span className="text-gray-200 font-normal">&amp; intelligent platforms</span>
+                </div>
+
+                {/* Desktop Line 2: Combined statement + animated role */}
+                <div className="hidden md:flex items-center text-left">
+                  <span className="text-gray-400">with precision, architecture &amp;&nbsp;</span>
+                  <AnimatedRoleText />
+                </div>
+
+                {/* Mobile Line 3: Precision & architecture */}
+                <div className="flex md:hidden items-center text-left">
+                  <span className="text-gray-400">with precision, architecture &amp;</span>
+                </div>
+
+                {/* Mobile Line 4: Animated role text flush left */}
+                <div className="flex md:hidden items-center text-left">
+                  <AnimatedRoleText />
+                </div>
               </div>
             </div>
           </div>
@@ -297,8 +321,8 @@ export default function DesktopOSPage() {
          <div
           className="absolute z-[5] pointer-events-none select-none origin-center"
           style={{
-            left: '43.5%',
-            top: '75%',
+            left: '52%',
+            top: '78%',
             transform: 'translate(-50%, -50%) rotate(-55deg)',
             width: '56vw',
             maskImage: 'linear-gradient(to right, black 0%, black 72%, transparent 100%)',

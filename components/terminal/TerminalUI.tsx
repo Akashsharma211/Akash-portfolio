@@ -17,7 +17,7 @@ export function Banner({ visible }: { visible: boolean }) {
             </div>
             <div className="mt-2 text-xs md:text-sm opacity-80 space-y-1" style={{ color: "#a6adc8" }}>
                 <div>
-                   Built by <a href="https://github.com/akashsharma20150" target="_blank" rel="noopener noreferrer" className="text-green-400 hover:text-green-300 font-bold underline decoration-green-400/30 underline-offset-4">Akash Kumar Sharma</a>.
+                   Built by <a href="https://github.com/Akashsharma211" target="_blank" rel="noopener noreferrer" className="text-green-400 hover:text-green-300 font-bold underline decoration-green-400/30 underline-offset-4">Akash Kumar Sharma</a>.
                 </div>
                 <div>
                    Type <span className="text-green-400 font-bold text-base mx-1 crt-glow">help</span> to see available commands.

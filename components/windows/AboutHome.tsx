@@ -336,7 +336,7 @@ export default function AboutHome({ onOpen }: { onOpen: OpenAppFn }) {
                   >
                     <div>
                       <div className="text-sm font-semibold text-white group-hover:text-purple-200">💻 Terminal CLI</div>
-                      <div className="text-xs text-zinc-400">ZSH shell, StarBlade &amp; secret commands</div>
+                      <div className="text-xs text-zinc-400">ZSH shell, Cyber Breach &amp; secret commands</div>
                     </div>
                     <span className="text-purple-400 opacity-60 group-hover:opacity-100 group-hover:translate-x-0.5 transition-all">→</span>
                   </button>

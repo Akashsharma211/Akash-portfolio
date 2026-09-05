@@ -140,7 +140,7 @@ export default function HeroSelector({ defaultSeconds = 10, onSelect }: { defaul
                   [Resume]
                 </a>
                 <a 
-                  href="https://github.com/akashsharma20150" 
+                  href="https://github.com/Akashsharma211" 
                   target="_blank" 
                   rel="noopener noreferrer" 
                   className="font-mono text-xs px-3 py-1 border border-green-500/40 text-green-400 hover:bg-green-500/10 transition-colors"

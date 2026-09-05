@@ -50,6 +50,19 @@ export const project = defineType({
       type: "url",
     }),
     defineField({
+      name: "category",
+      title: "Category",
+      type: "string",
+      options: {
+        list: [
+          { title: "Freelance Work", value: "freelance" },
+          { title: "Web App", value: "web-app" },
+        ],
+        layout: "radio",
+      },
+      initialValue: "web-app",
+    }),
+    defineField({
       name: "order",
       title: "Display Order",
       type: "number",

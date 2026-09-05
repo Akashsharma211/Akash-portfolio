@@ -60,6 +60,7 @@ export const profile = defineType({
         defineField({ name: "linkedin", title: "LinkedIn", type: "url" }),
         defineField({ name: "twitter", title: "Twitter / X", type: "url" }),
         defineField({ name: "instagram", title: "Instagram", type: "url" }),
+        defineField({ name: "codolio", title: "Codolio", type: "url" }),
         defineField({
           name: "portfolio",
           title: "Portfolio",

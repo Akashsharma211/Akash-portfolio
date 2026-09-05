@@ -106,6 +106,7 @@ async function seed() {
         linkedin: PROFILE.socials.linkedin,
         twitter: PROFILE.socials.twitter,
         instagram: PROFILE.socials.instagram,
+        codolio: PROFILE.socials.codolio,
         portfolio: PROFILE.socials.portfolio,
       },
       education: {

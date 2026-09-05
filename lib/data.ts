@@ -8,6 +8,7 @@ export type Project = {
   tech: string[];
   repo?: string;
   demo?: string;
+  category?: 'freelance' | 'web-app';
 };
 
 export type Experience = {
@@ -44,6 +45,7 @@ export type Profile = {
     linkedin: string;
     twitter: string;
     instagram: string;
+    codolio?: string;
     portfolio: string;
   };
   education: {
@@ -54,29 +56,53 @@ export type Profile = {
 
 // ===== PROJECTS =====
 export const PROJECTS: Project[] = [
+  // --- Freelance Work ---
   {
-    name: "Pause-Distraction — Productivity Chrome Extension",
-    slug: "pause-distraction",
-    desc: "Built a Chrome extension (Manifest V3) that tracks time spent on distracting websites, enforces user-defined limits, and redirects to a motivational 'Time’s Up' page. Implemented smart time-tracking, local storage privacy, configurable domain blocking, and lightweight alarms for efficient performance.",
-    tech: ["JavaScript", "Chrome", "HTML", "CSS"],
-    repo: "https://github.com/akashsharma20150",
-    demo: "https://github.com/akashsharma20150",
+    name: "MarineMetrics — Marine Engineering Telemetry Platform",
+    slug: "marine-metrics",
+    desc: "Architected a responsive client SaaS landing and interactive telemetry portal for marine vessel diagnostics, engine monitoring, and fuel optimization with high-performance dark-mode UI.",
+    tech: ["Next.js", "React", "TypeScript", "Tailwind CSS"],
+    repo: "https://github.com/Akashsharma211",
+    demo: "https://github.com/Akashsharma211",
+    category: "freelance",
   },
+  {
+    name: "E-Security AI — Automated Client Workflow Platform",
+    slug: "esecurity-platform",
+    desc: "Delivered a custom production-grade platform for client career workflow management, interview automation, and secure OAuth 2.0 multi-tenant services with real-time updates.",
+    tech: ["React", "Node.js", "Express", "MongoDB", "Docker"],
+    repo: "https://github.com/Akashsharma211",
+    demo: "https://github.com/Akashsharma211",
+    category: "freelance",
+  },
+
+  // --- Web Apps ---
   {
     name: "ChatZ — Real-time Chat Web Application",
     slug: "chatz",
     desc: "Designed ChatZ's architecture using RESTful APIs and WebSockets, enabling seamless real-time messaging used by 30+ employees across departments. Built using Node.js, Express, MongoDB, WebSockets, and Stream Chat API for real-time communication, with a responsive frontend using React and Tailwind CSS.",
     tech: ["React", "Node.js", "Express", "MongoDB", "Tailwind CSS", "Socket.io"],
-    repo: "https://github.com/akashsharma20150",
-    demo: "https://github.com/akashsharma20150",
+    repo: "https://github.com/Akashsharma211",
+    demo: "https://github.com/Akashsharma211",
+    category: "web-app",
   },
   {
     name: "AI Purchase Order (PO) Extractor",
     slug: "po-extractor",
     desc: "Architected a full-stack AI-powered Purchase Order Extractor implementing a hybrid LLM orchestration pipeline with Gemini 3.1 Flash and PyMuPDF for high-accuracy structured PDF data extraction and predictive analytics.",
     tech: ["FastAPI", "Python", "React", "SQLAlchemy", "Docker"],
-    repo: "https://github.com/akashsharma20150",
-    demo: "https://github.com/akashsharma20150",
+    repo: "https://github.com/Akashsharma211",
+    demo: "https://github.com/Akashsharma211",
+    category: "web-app",
+  },
+  {
+    name: "Pause-Distraction — Productivity Chrome Extension",
+    slug: "pause-distraction",
+    desc: "Built a Chrome extension (Manifest V3) that tracks time spent on distracting websites, enforces user-defined limits, and redirects to a motivational 'Time’s Up' page. Implemented smart time-tracking, local storage privacy, configurable domain blocking, and lightweight alarms for efficient performance.",
+    tech: ["JavaScript", "Chrome", "HTML", "CSS"],
+    repo: "https://github.com/Akashsharma211",
+    demo: "https://github.com/Akashsharma211",
+    category: "web-app",
   },
 ];
 
@@ -152,10 +178,11 @@ export const PROFILE: Profile = {
     open_to: "Open to SDE Roles & Collaborative Opportunities",
   },
   socials: {
-    github: "https://github.com/akashsharma20150",
-    linkedin: "https://linkedin.com/in/akashsharma20150",
+    github: "https://github.com/Akashsharma211",
+    linkedin: "https://www.linkedin.com/in/akash-kumar-sharma-62598b30b",
     twitter: "https://x.com/akashsharma20150",
-    instagram: "https://instagram.com/akashsharma20150",
+    instagram: "https://www.instagram.com/sepia_erin/",
+    codolio: "https://codolio.com/profile/Sepia_erin",
     portfolio: "https://akashsharma.dev",
   },
   education: {

@@ -8,7 +8,8 @@ export const ALL_PROJECTS_QUERY = `*[_type == "project"] | order(order asc) {
   desc,
   tech,
   repo,
-  demo
+  demo,
+  category
 }`;
 
 // ===== EXPERIENCE =====
@@ -42,6 +43,7 @@ export const PROFILE_QUERY = `*[_type == "profile"][0] {
     linkedin,
     twitter,
     instagram,
+    codolio,
     portfolio
   },
   education {

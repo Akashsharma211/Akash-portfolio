@@ -7,7 +7,7 @@ const AnimatedRoleText = () => {
     const [currentRole, setCurrentRole] = useState("innovation");
     const [isAnimating, setIsAnimating] = useState(false);
 
-    const roles = useMemo(() => ["innovation", "creativity", "excellence", "vision"], []);
+    const roles = useMemo(() => ["innovation", "impact", "performance", "intelligence"], []);
     const randomChars = "abcdefghijklmnopqrstuvwxyz";
 
     useEffect(() => {
@@ -45,7 +45,7 @@ const AnimatedRoleText = () => {
 
     return (
         <motion.span
-            className="text-accent font-medium ml-2"
+            className="text-accent font-medium inline-block m-0 p-0"
             animate={{
                 y: isAnimating ? [0, -1, 0] : 0,
                 scale: isAnimating ? [1, 1.02, 1] : 1
