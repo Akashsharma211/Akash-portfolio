@@ -1,8 +1,8 @@
 "use client";
 
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useMemo } from "react";
 import ExperienceCard from "./ExperienceCard";
-import { useExperience, useResume, useProfile } from "@/lib/useSanityData";
+import { useExperience, useResume, useProfile, useHobbies } from "@/lib/useSanityData";
 import { motion, AnimatePresence } from "motion/react";
 
 export type OpenAppFn = (app: "about" | "projects" | "skills" | "contact" | "terminal" | "tetris") => void;
@@ -33,6 +33,83 @@ export default function AboutHome({ onOpen }: { onOpen: OpenAppFn }) {
   const experience = useExperience();
   const resume = useResume();
   const profile = useProfile();
+  const hobbiesData = useHobbies();
+
+  const HOBBY_METADATA: Record<string, {
+    icon: string;
+    badge: string;
+    gradient: string;
+    borderColor: string;
+    highlight: string;
+    tagline: string;
+    desc: string;
+  }> = {
+    Gaming: {
+      icon: "🎮",
+      badge: "Action RPGs • Soulslike",
+      gradient: "from-red-950/40 via-zinc-900/60 to-black/80",
+      borderColor: "border-red-500/30 hover:border-red-400/60",
+      highlight: "text-red-300",
+      tagline: "\"Rise, Tarnished.\" — Elden Ring",
+      desc: "Conquering punishing boss fights, mastering dodge frames, and exploring vast lore-rich worlds.",
+    },
+    Chess: {
+      icon: "♟️",
+      badge: "1200+ Elo • Blitz / Rapid",
+      gradient: "from-blue-950/40 via-zinc-900/60 to-black/80",
+      borderColor: "border-blue-500/30 hover:border-blue-400/60",
+      highlight: "text-blue-300",
+      tagline: "1200+ on Chess.com",
+      desc: "Tactical openings, rapid & blitz calculation, calculated gambits, and converting dynamic positions.",
+    },
+    Cats: {
+      icon: "🐱",
+      badge: "Chief Companion • Debugger",
+      gradient: "from-amber-950/40 via-zinc-900/60 to-black/80",
+      borderColor: "border-amber-500/30 hover:border-amber-400/60",
+      highlight: "text-amber-300",
+      tagline: "Permanently chosen by feline royalty",
+      desc: "Certified cat whisperer. Providing purr-powered debugging support and unconditional lap comfort.",
+    },
+    Cooking: {
+      icon: "🍳",
+      badge: "Culinary Alchemy • Spices",
+      gradient: "from-emerald-950/40 via-zinc-900/60 to-black/80",
+      borderColor: "border-emerald-500/30 hover:border-emerald-400/60",
+      highlight: "text-emerald-300",
+      tagline: "Alchemy, to satisfy my hunger",
+      desc: "Treating cooking like alchemy: balancing complex spices, temperature control, and precision plating.",
+    },
+  };
+
+  const parsedHobbies = useMemo(() => {
+    const list = hobbiesData && hobbiesData.length > 0 ? hobbiesData : [
+      "Gaming — \"Rise, Tarnished.\" - Elden Ring",
+      "Chess — 1200+ on Chess.com",
+      "Cats — Permanently chosen by at least one feline",
+      "Cooking — Alchemy, to satisfy my hunger"
+    ];
+
+    return list.map(item => {
+      const [rawTitle, rawQuote] = item.split(" — ");
+      const title = rawTitle?.replace(/^[^\w]*/, "").trim() || item;
+      const quote = rawQuote?.trim() || "";
+      const meta = HOBBY_METADATA[title] || {
+        icon: "✨",
+        badge: "Creative Pursuit",
+        gradient: "from-purple-950/40 via-zinc-900/60 to-black/80",
+        borderColor: "border-purple-500/30 hover:border-purple-400/60",
+        highlight: "text-purple-300",
+        tagline: quote || "Exploring passions beyond the screen",
+        desc: "Pursuing curious creative quests, offline crafts, and personal hobbies.",
+      };
+      return {
+        title,
+        quote: quote || meta.tagline,
+        ...meta
+      };
+    });
+  }, [hobbiesData]);
 
   const renderAbout = () => {
 
@@ -163,31 +240,51 @@ export default function AboutHome({ onOpen }: { onOpen: OpenAppFn }) {
               </div>
             </motion.div>
 
-            {/* Akash's Universe Button */}
+            {/* Akash's Universe Button - 3D Skeuomorphic Glossy Black Capsule */}
             <motion.div variants={itemVariants} className={isMobile ? "pl-0 pt-2" : "pl-2 pt-2"}>
               <motion.button
                 onClick={() => setShowUniverseModal(true)}
-                whileHover={{ scale: 1.03, y: -2 }}
-                whileTap={{ scale: 0.97 }}
-                className="group relative inline-flex items-center gap-3.5 px-6 sm:px-8 py-3.5 sm:py-4 rounded-2xl bg-gradient-to-r from-purple-950/70 via-indigo-950/60 to-zinc-900/80 border border-purple-500/40 hover:border-purple-400/70 shadow-[0_4px_25px_rgba(168,85,247,0.22)] hover:shadow-[0_8px_35px_rgba(168,85,247,0.45)] transition-all duration-300 overflow-hidden"
+                whileHover={{ scale: 1.035, y: -1.5 }}
+                whileTap={{ scale: 0.96, y: 1 }}
+                className="group relative inline-flex items-center justify-center cursor-pointer select-none rounded-full p-[2.5px] transition-all duration-300"
+                style={{
+                  background: "linear-gradient(180deg, #3d3d40 0%, #1e1e22 35%, #0d0d0f 70%, #1a1a1d 100%)",
+                  boxShadow: "0 8px 25px rgba(0, 0, 0, 0.85), 0 2px 6px rgba(0, 0, 0, 0.6), 0 0 0 1px rgba(255, 255, 255, 0.12)",
+                }}
               >
-                {/* Cosmic Ambient Sheen */}
-                <div className="absolute inset-0 bg-gradient-to-r from-purple-600/15 via-pink-500/15 to-blue-600/15 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-                
-                {/* Cosmic Sparkle Icon */}
-                <div className="relative z-10 w-9 h-9 rounded-xl bg-purple-500/20 border border-purple-400/30 flex items-center justify-center text-purple-300 group-hover:scale-110 transition-transform duration-300 shadow-inner">
-                  <svg className="w-5 h-5 text-purple-300 animate-pulse" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.75}>
-                    <path strokeLinecap="round" strokeLinejoin="round" d="M9.813 15.904L9 18.75l-.813-2.846a4.5 4.5 0 00-3.09-3.09L2.25 12l2.846-.813a4.5 4.5 0 003.09-3.09L9 5.25l.813 2.846a4.5 4.5 0 003.09 3.09L15.75 12l-2.846.813a4.5 4.5 0 00-3.09 3.09zM18.259 8.715L18 9.75l-.259-1.035a3.375 3.375 0 00-2.455-2.456L14.25 6l1.036-.259a3.375 3.375 0 002.455-2.456L18 2.25l.259 1.035a3.375 3.375 0 002.456 2.456L21.75 6l-1.035.259a3.375 3.375 0 00-2.456 2.456zM16.894 20.567L16.5 21.75l-.394-1.183a2.25 2.25 0 00-1.423-1.423L13.5 18.75l1.183-.394a2.25 2.25 0 001.423-1.423l.394-1.183.394 1.183a2.25 2.25 0 001.423 1.423l1.183.394-1.183.394a2.25 2.25 0 00-1.423 1.423z" />
-                  </svg>
-                </div>
+                {/* Inner Capsule Body */}
+                <div
+                  className="relative flex items-center justify-center px-8 sm:px-10 py-3 sm:py-3.5 rounded-full overflow-hidden w-full h-full"
+                  style={{
+                    background: "linear-gradient(180deg, #1c1c1f 0%, #0f0f11 46%, #050506 54%, #000000 100%)",
+                    boxShadow: "inset 0 1px 1px rgba(255, 255, 255, 0.45), inset 0 -2px 6px rgba(0, 0, 0, 0.95)",
+                  }}
+                >
+                  {/* Top Specular Liquid Glass Curved Highlight (Skeuomorphic Sheen) */}
+                  <div
+                    className="absolute top-[2px] left-[6px] right-[6px] h-[48%] rounded-full pointer-events-none"
+                    style={{
+                      background: "linear-gradient(180deg, rgba(255, 255, 255, 0.5) 0%, rgba(255, 255, 255, 0.16) 55%, rgba(255, 255, 255, 0) 100%)",
+                      boxShadow: "inset 0 1px 1px rgba(255, 255, 255, 0.65)",
+                    }}
+                  />
 
-                {/* Text & Indicator */}
-                <div className="relative z-10 flex items-center gap-2.5">
-                  <span className="font-bold text-base sm:text-lg text-white tracking-wide group-hover:text-purple-100 transition-colors">
+                  {/* Outer Rim Specular Lip */}
+                  <div
+                    className="absolute inset-[1px] rounded-full pointer-events-none opacity-35 group-hover:opacity-70 transition-opacity duration-300"
+                    style={{
+                      border: "1px solid rgba(255, 255, 255, 0.3)",
+                      maskImage: "linear-gradient(to bottom, black 0%, transparent 65%)",
+                      WebkitMaskImage: "linear-gradient(to bottom, black 0%, transparent 65%)",
+                    }}
+                  />
+
+                  {/* Subtle Gleam Sweep on Hover */}
+                  <div className="absolute inset-0 -translate-x-full group-hover:translate-x-full transition-transform duration-1000 ease-out bg-gradient-to-r from-transparent via-white/12 to-transparent pointer-events-none" />
+
+                  {/* Button Label */}
+                  <span className="relative z-10 font-bold text-xs sm:text-sm text-white tracking-[0.16em] uppercase drop-shadow-[0_1px_3px_rgba(0,0,0,0.95)]">
                     Akash&apos;s Universe
-                  </span>
-                  <span className="text-purple-300 text-xs font-semibold px-2 py-0.5 rounded-full bg-purple-500/20 border border-purple-500/40 group-hover:bg-purple-500/35 transition-colors">
-                    Explore ✦
                   </span>
                 </div>
               </motion.button>
@@ -240,77 +337,124 @@ export default function AboutHome({ onOpen }: { onOpen: OpenAppFn }) {
       {/* Akash's Universe Modal */}
       <AnimatePresence>
         {showUniverseModal && (
-          <div className="fixed inset-0 z-[100] flex items-center justify-center p-4 bg-black/80 backdrop-blur-md">
+          <div 
+            className="fixed inset-0 z-[100] flex items-center justify-center p-3 sm:p-4 bg-black/85 backdrop-blur-md"
+            onClick={(e) => {
+              if (e.target === e.currentTarget) setShowUniverseModal(false);
+            }}
+          >
             <motion.div
               initial={{ opacity: 0, scale: 0.92, y: 15 }}
               animate={{ opacity: 1, scale: 1, y: 0 }}
               exit={{ opacity: 0, scale: 0.92, y: 15 }}
               transition={{ duration: 0.22, ease: "easeOut" }}
-              className="relative w-full max-w-2xl bg-[#0d0e15]/95 border border-purple-500/35 rounded-3xl p-6 sm:p-8 shadow-[0_0_55px_rgba(168,85,247,0.28)] overflow-hidden"
+              className="relative w-full max-w-2xl max-h-[90vh] overflow-y-auto bg-[#0c0d14]/95 border border-purple-500/35 rounded-3xl p-5 sm:p-7 shadow-[0_0_60px_rgba(168,85,247,0.25)] scrollbar-thin scrollbar-thumb-white/10"
             >
-              {/* Top cosmic ambient light */}
+              {/* Cosmic ambient light */}
               <div className="absolute top-0 left-1/2 -translate-x-1/2 w-3/4 h-28 bg-gradient-to-b from-purple-600/25 via-indigo-600/10 to-transparent blur-3xl pointer-events-none" />
 
               {/* Close Button */}
               <button
                 onClick={() => setShowUniverseModal(false)}
-                className="absolute top-5 right-5 w-8 h-8 flex items-center justify-center rounded-full bg-white/5 border border-white/10 text-zinc-400 hover:text-white hover:bg-white/10 transition-colors z-20 cursor-pointer"
+                className="absolute top-4 right-4 sm:top-5 sm:right-5 w-8 h-8 flex items-center justify-center rounded-full bg-white/5 border border-white/10 text-zinc-400 hover:text-white hover:bg-white/10 transition-colors z-20 cursor-pointer"
                 aria-label="Close"
               >
                 ✕
               </button>
 
               {/* Header */}
-              <div className="relative z-10 mb-6">
-                <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-purple-500/15 border border-purple-500/30 text-purple-300 text-xs font-semibold uppercase tracking-wider mb-3">
-                  <span>🌌</span> Cosmic Dimension
+              <div className="relative z-10 mb-6 pr-8">
+                <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-purple-500/15 border border-purple-500/30 text-purple-300 text-xs font-semibold uppercase tracking-wider mb-2.5">
+                  <span>🌌</span> Akash&apos;s Universe
                 </div>
                 <h2 className="text-2xl sm:text-3xl font-black text-white tracking-tight">
-                  Akash&apos;s Universe
+                  Hobbies &amp; Offline Quests
                 </h2>
-                <p className="text-zinc-400 text-sm mt-1.5">
-                  Welcome to my digital space — explore hackathon journeys, high-impact systems, and interactive modules.
+                <p className="text-zinc-400 text-xs sm:text-sm mt-1.5 leading-relaxed">
+                  What fuels my curiosity when I&apos;m not writing code — gaming challenges, tactical chess battles, feline companions, and culinary alchemy.
                 </p>
               </div>
 
+              {/* Hobbies Showcase Grid */}
+              <div className="relative z-10 grid grid-cols-1 sm:grid-cols-2 gap-3.5 mb-6">
+                {parsedHobbies.map((hobby, idx) => (
+                  <motion.div
+                    key={idx}
+                    initial={{ opacity: 0, y: 10 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ delay: idx * 0.06 }}
+                    className={`relative p-4 sm:p-4.5 rounded-2xl bg-gradient-to-br ${hobby.gradient} border ${hobby.borderColor} shadow-lg transition-all duration-300 hover:scale-[1.02] group overflow-hidden`}
+                  >
+                    {/* Top Row: Icon + Title + Badge */}
+                    <div className="flex items-start justify-between gap-2 mb-2.5">
+                      <div className="flex items-center gap-2.5">
+                        <span className="text-2xl sm:text-3xl p-2 rounded-xl bg-white/[0.06] border border-white/10 shadow-inner">
+                          {hobby.icon}
+                        </span>
+                        <div>
+                          <h3 className="text-base sm:text-lg font-bold text-white tracking-wide group-hover:text-purple-200 transition-colors">
+                            {hobby.title}
+                          </h3>
+                          <span className="text-[11px] font-medium text-zinc-400">
+                            {hobby.badge}
+                          </span>
+                        </div>
+                      </div>
+                    </div>
+
+                    {/* Quote / Highlight Tag */}
+                    <div className="mb-2 px-2.5 py-1 rounded-lg bg-black/40 border border-white/5 inline-block max-w-full">
+                      <p className={`text-xs font-mono font-medium ${hobby.highlight} truncate`}>
+                        {hobby.quote}
+                      </p>
+                    </div>
+
+                    {/* Description */}
+                    <p className="text-xs text-zinc-300/90 leading-relaxed">
+                      {hobby.desc}
+                    </p>
+                  </motion.div>
+                ))}
+              </div>
+
               {/* Key Highlights / Stats */}
-              <div className="relative z-10 grid grid-cols-2 sm:grid-cols-4 gap-3 mb-6">
-                <div className="p-3.5 rounded-xl bg-white/[0.03] border border-white/5 text-center">
-                  <div className="text-xl sm:text-2xl font-black text-purple-300">8+</div>
-                  <div className="text-[11px] text-zinc-400 uppercase tracking-wider font-medium mt-0.5">Hackathons</div>
+              <div className="relative z-10 grid grid-cols-2 sm:grid-cols-4 gap-2.5 mb-6">
+                <div className="p-3 rounded-xl bg-white/[0.03] border border-white/5 text-center">
+                  <div className="text-lg sm:text-xl font-black text-purple-300">8+</div>
+                  <div className="text-[10px] text-zinc-400 uppercase tracking-wider font-medium mt-0.5">Hackathons</div>
                 </div>
-                <div className="p-3.5 rounded-xl bg-white/[0.03] border border-white/5 text-center">
-                  <div className="text-xl sm:text-2xl font-black text-purple-300">Top 10</div>
-                  <div className="text-[11px] text-zinc-400 uppercase tracking-wider font-medium mt-0.5">In 3 Events</div>
+                <div className="p-3 rounded-xl bg-white/[0.03] border border-white/5 text-center">
+                  <div className="text-lg sm:text-xl font-black text-purple-300">Top 10</div>
+                  <div className="text-[10px] text-zinc-400 uppercase tracking-wider font-medium mt-0.5">In 3 Events</div>
                 </div>
-                <div className="p-3.5 rounded-xl bg-white/[0.03] border border-white/5 text-center">
-                  <div className="text-xl sm:text-2xl font-black text-purple-300">8.62</div>
-                  <div className="text-[11px] text-zinc-400 uppercase tracking-wider font-medium mt-0.5">B.Tech CGPA</div>
+                <div className="p-3 rounded-xl bg-white/[0.03] border border-white/5 text-center">
+                  <div className="text-lg sm:text-xl font-black text-purple-300">8.62</div>
+                  <div className="text-[10px] text-zinc-400 uppercase tracking-wider font-medium mt-0.5">B.Tech CGPA</div>
                 </div>
-                <div className="p-3.5 rounded-xl bg-white/[0.03] border border-white/5 text-center">
-                  <div className="text-xl sm:text-2xl font-black text-purple-300">AI &amp; SDE</div>
-                  <div className="text-[11px] text-zinc-400 uppercase tracking-wider font-medium mt-0.5">Focus</div>
+                <div className="p-3 rounded-xl bg-white/[0.03] border border-white/5 text-center">
+                  <div className="text-lg sm:text-xl font-black text-purple-300">AI &amp; SDE</div>
+                  <div className="text-[10px] text-zinc-400 uppercase tracking-wider font-medium mt-0.5">Focus</div>
                 </div>
               </div>
 
-              {/* Interactive Portals */}
+              {/* Quick Portals */}
               <div className="relative z-10 space-y-2">
-                <div className="text-xs uppercase tracking-wider font-semibold text-zinc-400 mb-2 pl-0.5">
+                <div className="text-[11px] uppercase tracking-wider font-semibold text-zinc-400 mb-1.5 pl-0.5">
                   Quick Portals
                 </div>
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-2.5">
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
                   <button
                     onClick={() => {
                       setShowUniverseModal(false);
                       onOpen("projects");
                     }}
-                    className="flex items-center justify-between p-3.5 rounded-xl bg-white/[0.04] hover:bg-purple-600/15 border border-white/5 hover:border-purple-500/40 text-left transition-all group cursor-pointer"
+                    className="flex items-center justify-between p-3 rounded-xl bg-white/[0.03] hover:bg-purple-600/15 border border-white/5 hover:border-purple-500/40 text-left transition-all group cursor-pointer"
                   >
                     <div>
-                      <div className="text-sm font-semibold text-white group-hover:text-purple-200">🚀 Projects Galaxy</div>
-                      <div className="text-xs text-zinc-400">Chrome Ext, ChatZ &amp; AI PO Extractor</div>
+                      <div className="text-xs sm:text-sm font-semibold text-white group-hover:text-purple-200">🚀 Projects Galaxy</div>
+                      <div className="text-[11px] text-zinc-400">Freelance &amp; Web Apps</div>
                     </div>
-                    <span className="text-purple-400 opacity-60 group-hover:opacity-100 group-hover:translate-x-0.5 transition-all">→</span>
+                    <span className="text-purple-400 opacity-60 group-hover:opacity-100 group-hover:translate-x-0.5 transition-all text-xs">→</span>
                   </button>
 
                   <button
@@ -318,13 +462,13 @@ export default function AboutHome({ onOpen }: { onOpen: OpenAppFn }) {
                       setShowUniverseModal(false);
                       onOpen("skills");
                     }}
-                    className="flex items-center justify-between p-3.5 rounded-xl bg-white/[0.04] hover:bg-purple-600/15 border border-white/5 hover:border-purple-500/40 text-left transition-all group cursor-pointer"
+                    className="flex items-center justify-between p-3 rounded-xl bg-white/[0.03] hover:bg-purple-600/15 border border-white/5 hover:border-purple-500/40 text-left transition-all group cursor-pointer"
                   >
                     <div>
-                      <div className="text-sm font-semibold text-white group-hover:text-purple-200">⚡ Skills Constellation</div>
-                      <div className="text-xs text-zinc-400">Languages, Web Dev &amp; Data Analytics</div>
+                      <div className="text-xs sm:text-sm font-semibold text-white group-hover:text-purple-200">⚡ Skills Constellation</div>
+                      <div className="text-[11px] text-zinc-400">Languages &amp; Frameworks</div>
                     </div>
-                    <span className="text-purple-400 opacity-60 group-hover:opacity-100 group-hover:translate-x-0.5 transition-all">→</span>
+                    <span className="text-purple-400 opacity-60 group-hover:opacity-100 group-hover:translate-x-0.5 transition-all text-xs">→</span>
                   </button>
 
                   <button
@@ -332,13 +476,13 @@ export default function AboutHome({ onOpen }: { onOpen: OpenAppFn }) {
                       setShowUniverseModal(false);
                       onOpen("terminal");
                     }}
-                    className="flex items-center justify-between p-3.5 rounded-xl bg-white/[0.04] hover:bg-purple-600/15 border border-white/5 hover:border-purple-500/40 text-left transition-all group cursor-pointer"
+                    className="flex items-center justify-between p-3 rounded-xl bg-white/[0.03] hover:bg-purple-600/15 border border-white/5 hover:border-purple-500/40 text-left transition-all group cursor-pointer"
                   >
                     <div>
-                      <div className="text-sm font-semibold text-white group-hover:text-purple-200">💻 Terminal CLI</div>
-                      <div className="text-xs text-zinc-400">ZSH shell, Cyber Breach &amp; secret commands</div>
+                      <div className="text-xs sm:text-sm font-semibold text-white group-hover:text-purple-200">💻 Terminal CLI</div>
+                      <div className="text-[11px] text-zinc-400">ZSH shell, Breach &amp; hacks</div>
                     </div>
-                    <span className="text-purple-400 opacity-60 group-hover:opacity-100 group-hover:translate-x-0.5 transition-all">→</span>
+                    <span className="text-purple-400 opacity-60 group-hover:opacity-100 group-hover:translate-x-0.5 transition-all text-xs">→</span>
                   </button>
 
                   <button
@@ -346,13 +490,13 @@ export default function AboutHome({ onOpen }: { onOpen: OpenAppFn }) {
                       setShowUniverseModal(false);
                       onOpen("contact");
                     }}
-                    className="flex items-center justify-between p-3.5 rounded-xl bg-white/[0.04] hover:bg-purple-600/15 border border-white/5 hover:border-purple-500/40 text-left transition-all group cursor-pointer"
+                    className="flex items-center justify-between p-3 rounded-xl bg-white/[0.03] hover:bg-purple-600/15 border border-white/5 hover:border-purple-500/40 text-left transition-all group cursor-pointer"
                   >
                     <div>
-                      <div className="text-sm font-semibold text-white group-hover:text-purple-200">📡 Transmission / Contact</div>
-                      <div className="text-xs text-zinc-400">Connect via Email, LinkedIn or Phone</div>
+                      <div className="text-xs sm:text-sm font-semibold text-white group-hover:text-purple-200">📡 Transmission / Contact</div>
+                      <div className="text-[11px] text-zinc-400">Email, Socials &amp; Phone</div>
                     </div>
-                    <span className="text-purple-400 opacity-60 group-hover:opacity-100 group-hover:translate-x-0.5 transition-all">→</span>
+                    <span className="text-purple-400 opacity-60 group-hover:opacity-100 group-hover:translate-x-0.5 transition-all text-xs">→</span>
                   </button>
                 </div>
               </div>
