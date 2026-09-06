@@ -1,4 +1,4 @@
-import { client } from "./sanity.client";
+import { client, isSanityConfigured } from "./sanity.client";
 import {
   ALL_PROJECTS_QUERY,
   ALL_EXPERIENCE_QUERY,
@@ -39,6 +39,9 @@ async function fetchWithFallback<T>(
   fallback: T,
   label: string
 ): Promise<T> {
+  if (!client || !isSanityConfigured) {
+    return fallback;
+  }
   try {
     const result = await client.fetch<T>(query);
 
@@ -98,6 +101,9 @@ export async function fetchAllTasks(): Promise<Task[]> {
 }
 
 export async function fetchAllHobbies(): Promise<string[]> {
+  if (!client || !isSanityConfigured) {
+    return HOBBIES;
+  }
   // Sanity hobbies have { title, description }, but data.ts stores them as
   // combined strings like 'Gaming -- "Rise, Tarnished." - Elden Ring'
   // We convert Sanity format to the string format for backward compatibility

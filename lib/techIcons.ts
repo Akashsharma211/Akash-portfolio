@@ -14,8 +14,11 @@
 export const TECH_ICON_MAP: Record<string, string> = {
   // Languages
   C: "C.svg",
-  "C++": "C++-(CPlusPlus).svg",
-  "C#": "C#-(CSharp).svg",
+  "C++": "cpp.svg",
+  cpp: "cpp.svg",
+  "cplusplus": "cpp.svg",
+  "C#": "csharp.svg",
+  csharp: "csharp.svg",
   Java: "Java.svg",
   JavaScript: "JavaScript.svg",
   TypeScript: "TypeScript.svg",

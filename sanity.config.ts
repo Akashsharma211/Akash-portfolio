@@ -3,14 +3,14 @@ import { structureTool } from "sanity/structure";
 import { visionTool } from "@sanity/vision";
 import { schemaTypes } from "./sanity/schemas";
 
-const projectId = process.env.NEXT_PUBLIC_SANITY_PROJECT_ID || "snu4zq4v";
+const projectId = process.env.NEXT_PUBLIC_SANITY_PROJECT_ID || "";
 const dataset = process.env.NEXT_PUBLIC_SANITY_DATASET || "production";
 
 export default defineConfig({
   name: "portfolio-studio",
   title: "Portfolio CMS",
 
-  projectId,
+  projectId: projectId || "disabled",
   dataset,
 
   plugins: [structureTool(), visionTool()],

@@ -120,7 +120,7 @@ function ProjectCard({ project }: { project: Project }) {
                 title={t}
               >
                 <img
-                  src={`/tech svg/${icon.file}`}
+                  src={encodeURI(`/tech svg/${icon.file}`)}
                   alt={t}
                   className={`w-4 h-4 object-contain ${icon.invert ? "brightness-0 invert" : ""}`}
                 />
@@ -268,10 +268,10 @@ export default function ProjectsWindow({ onOpen }: { onOpen?: (app: string) => v
                 }}
                 className="relative group inline-flex items-center justify-center gap-3 px-8 sm:px-10 py-3.5 rounded-full overflow-hidden cursor-pointer select-none transition-all duration-300 hover:scale-[1.02] active:scale-[0.98]"
                 style={{
-                  background: "linear-gradient(180deg, #005ce6 0%, #003db3 48%, #00237a 100%)",
+                  background: "linear-gradient(180deg, #242428 0%, #121214 48%, #050506 100%)",
                   boxShadow:
-                    "inset 0 1.5px 2px rgba(255, 255, 255, 0.8), inset 0 -2px 5px rgba(0, 0, 0, 0.6), 0 8px 24px -2px rgba(0, 90, 240, 0.65), 0 0 20px rgba(0, 102, 255, 0.35)",
-                  border: "1px solid rgba(120, 180, 255, 0.4)",
+                    "inset 0 1.5px 2px rgba(255, 255, 255, 0.35), inset 0 -2px 5px rgba(0, 0, 0, 0.9), 0 8px 24px -2px rgba(0, 0, 0, 0.8), 0 0 20px rgba(255, 255, 255, 0.06)",
+                  border: "1px solid rgba(255, 255, 255, 0.2)",
                 }}
               >
                 {/* Top Gloss Shine Specular Highlight */}
@@ -279,7 +279,7 @@ export default function ProjectsWindow({ onOpen }: { onOpen?: (app: string) => v
                   className="absolute top-[2px] inset-x-3 h-[44%] rounded-full pointer-events-none"
                   style={{
                     background:
-                      "linear-gradient(180deg, rgba(255, 255, 255, 0.65) 0%, rgba(255, 255, 255, 0.15) 60%, rgba(255, 255, 255, 0) 100%)",
+                      "linear-gradient(180deg, rgba(255, 255, 255, 0.35) 0%, rgba(255, 255, 255, 0.08) 60%, rgba(255, 255, 255, 0) 100%)",
                   }}
                 />
 

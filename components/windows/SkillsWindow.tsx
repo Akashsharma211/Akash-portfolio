@@ -34,7 +34,7 @@ export default function SkillsWindow() {
                         <div className="w-14 h-14 flex items-center justify-center bg-zinc-900/80 rounded-2xl border border-white/10 group-hover:border-white/25 group-hover:-translate-y-1 group-hover:shadow-lg group-hover:shadow-black/60 transition-all duration-300">
                           {icon ? (
                             <img 
-                              src={`/tech svg/${icon.file}`} 
+                              src={encodeURI(`/tech svg/${icon.file}`)} 
                               alt={`${skill} icon`}
                               className={`w-8 h-8 object-contain ${icon.invert ? "brightness-0 invert drop-shadow-[0_0_8px_rgba(255,255,255,0.4)]" : "drop-shadow-sm"} opacity-95 group-hover:opacity-100 transition-opacity`}
                             />

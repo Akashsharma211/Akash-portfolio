@@ -21,8 +21,13 @@ import {
   HOBBIES,
 } from "../lib/data";
 
-const projectId = process.env.NEXT_PUBLIC_SANITY_PROJECT_ID || "snu4zq4v";
+const projectId = process.env.NEXT_PUBLIC_SANITY_PROJECT_ID;
 const dataset = process.env.NEXT_PUBLIC_SANITY_DATASET || "production";
+
+if (!projectId) {
+  console.error("Please set NEXT_PUBLIC_SANITY_PROJECT_ID before running the seed script.");
+  process.exit(1);
+}
 
 const client = createClient({
   projectId,

@@ -25,7 +25,7 @@ export default function DesktopOSPage() {
 
   // track which windows are open and a z-order stack for layering
   const [openWindows, setOpenWindows] = useState<Record<WindowAppType, boolean>>({
-    about: false,
+    about: true,
     projects: false,
     skills: false,
     contact: false,
@@ -36,8 +36,8 @@ export default function DesktopOSPage() {
   // Window dimensions - use consistent initial values to prevent hydration mismatch
   const [width, setWidth] = useState(1440);
   const [height, setHeight] = useState(900);
-  const [windowStack, setWindowStack] = useState<WindowAppType[]>([]);
-  const [focusedWindow, setFocusedWindow] = useState<WindowAppType | null>(null);
+  const [windowStack, setWindowStack] = useState<WindowAppType[]>(['about']);
+  const [focusedWindow, setFocusedWindow] = useState<WindowAppType | null>('about');
 
   // Responsive configuration
   const responsiveConfig = useMemo(() => getResponsiveConfig(width, height), [width, height]);
