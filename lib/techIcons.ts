@@ -63,6 +63,7 @@ export const TECH_ICON_MAP: Record<string, string> = {
   Flask: "Flask.svg",
   Spring: "Spring.svg",
   "Socket.io": "Socket.io.svg",
+  WebSockets: "Socket.io.svg",
 
   // Databases
   MongoDB: "MongoDB.svg",

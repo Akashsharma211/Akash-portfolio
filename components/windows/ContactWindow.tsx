@@ -1,12 +1,22 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useProfile } from "@/lib/useSanityData";
 import emailjs from "@emailjs/browser";
 
 export default function ContactWindow() {
   const profile = useProfile();
   const [activeTab, setActiveTab] = useState<"socials" | "form">("socials");
+
+  useEffect(() => {
+    const handleSwitchTab = (e: CustomEvent<string>) => {
+      if (e.detail === "form" || e.detail === "socials") {
+        setActiveTab(e.detail);
+      }
+    };
+    window.addEventListener("contact-tab" as any, handleSwitchTab);
+    return () => window.removeEventListener("contact-tab" as any, handleSwitchTab);
+  }, []);
 
   // Form State
   const [formData, setFormData] = useState({

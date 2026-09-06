@@ -90,6 +90,16 @@ export default function DesktopOSPage() {
     setFocusedWindow(appType);
   }, []);
 
+  useEffect(() => {
+    const handleOpenApp = (e: CustomEvent<string>) => {
+      if (e.detail && ["about", "projects", "skills", "contact", "tetris", "terminal"].includes(e.detail)) {
+        openWindow(e.detail as WindowAppType);
+      }
+    };
+    window.addEventListener("open-app" as any, handleOpenApp);
+    return () => window.removeEventListener("open-app" as any, handleOpenApp);
+  }, [openWindow]);
+
   const closeWindow = useCallback((appType: WindowAppType) => {
     setOpenWindows(prev => ({ ...prev, [appType]: false }));
     setMinimizedWindows(prev => ({ ...prev, [appType]: false }));
@@ -202,7 +212,7 @@ export default function DesktopOSPage() {
   // Window descriptors to remove JSX duplication
   const WINDOW_CONFIG: Record<WindowAppType, { title: string; render: () => React.JSX.Element }> = {
     about: { title: "About", render: () => <AboutHome onOpen={(app) => openWindow(app as WindowAppType)} /> },
-    projects: { title: "Projects", render: () => <ProjectsWindow /> },
+    projects: { title: "Projects", render: () => <ProjectsWindow onOpen={(app) => openWindow(app as WindowAppType)} /> },
     skills: { title: "Skills", render: () => <SkillsWindow /> },
     contact: { title: "Contact / Socials", render: () => <ContactWindow /> },
     tetris: { title: "Tetris Game", render: () => <TetrisGameWindow /> },

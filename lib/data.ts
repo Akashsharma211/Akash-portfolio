@@ -8,6 +8,8 @@ export type Project = {
   tech: string[];
   repo?: string;
   demo?: string;
+  video?: string;
+  image?: string;
   category?: 'freelance' | 'web-app';
 };
 
@@ -58,41 +60,41 @@ export type Profile = {
 export const PROJECTS: Project[] = [
   // --- Freelance Work ---
   {
-    name: "MarineMetrics — Marine Engineering Telemetry Platform",
-    slug: "marine-metrics",
-    desc: "Architected a responsive client SaaS landing and interactive telemetry portal for marine vessel diagnostics, engine monitoring, and fuel optimization with high-performance dark-mode UI.",
+    name: "Indiebox Productions — Music Production & Artist Platform",
+    slug: "indiebox-productions",
+    desc: "Architected and built the official web platform for India's premier independent music production house. Features immersive artist portfolios, release catalogs, dynamic audio/video showcases, production suite highlights, and seamless client booking workflows.",
     tech: ["Next.js", "React", "TypeScript", "Tailwind CSS"],
-    repo: "https://github.com/Akashsharma211",
-    demo: "https://github.com/Akashsharma211",
+    demo: "https://www.indieboxproductions.com/",
+    image: "/indiebox-logo.png",
     category: "freelance",
   },
   {
-    name: "E-Security AI — Automated Client Workflow Platform",
-    slug: "esecurity-platform",
-    desc: "Delivered a custom production-grade platform for client career workflow management, interview automation, and secure OAuth 2.0 multi-tenant services with real-time updates.",
-    tech: ["React", "Node.js", "Express", "MongoDB", "Docker"],
-    repo: "https://github.com/Akashsharma211",
-    demo: "https://github.com/Akashsharma211",
+    name: "Prabhkirat Singh Physics Classes — Digital Learning Platform",
+    slug: "prabhkirat-singh-physics",
+    desc: "Designed and developed the official educational web platform for Prabhkirat Singh Physics Classes, providing structured course offerings, student enrollment channels, and interactive academic resources for competitive physics coaching.",
+    tech: ["React", "JavaScript", "HTML", "CSS", "Tailwind CSS"],
+    demo: "https://prabhkiratsinghphysicsclasses.com/",
+    image: "/prabhkirat-singh.png",
     category: "freelance",
   },
 
   // --- Web Apps ---
   {
-    name: "ChatZ — Real-time Chat Web Application",
+    name: "ChatZ — Real-Time Social Communication Platform",
     slug: "chatz",
-    desc: "Designed ChatZ's architecture using RESTful APIs and WebSockets, enabling seamless real-time messaging used by 30+ employees across departments. Built using Node.js, Express, MongoDB, WebSockets, and Stream Chat API for real-time communication, with a responsive frontend using React and Tailwind CSS.",
-    tech: ["React", "Node.js", "Express", "MongoDB", "Tailwind CSS", "Socket.io"],
-    repo: "https://github.com/Akashsharma211",
-    demo: "https://github.com/Akashsharma211",
+    desc: "Modern real-time social communication platform featuring a VisionOS-inspired glassmorphism UI with dynamic themes. Packed with instant messaging (typing indicators, reactions, read receipts), WebRTC HD video/audio calling with screen sharing, smart language/study partner discovery, 8 dynamic themes, and secure JWT authentication.",
+    tech: ["React", "Vite", "Tailwind CSS", "Node.js", "Express", "MongoDB", "WebSockets", "JWT"],
+    repo: "https://github.com/Akashsharma211/ChatZ-videocalling-and-chat-webapp",
+    demo: "https://drive.google.com/file/d/1LTcs68o9ztgkBeKmgfzwEGsSibzx7Mzr/view?usp=sharing",
     category: "web-app",
   },
   {
-    name: "AI Purchase Order (PO) Extractor",
-    slug: "po-extractor",
-    desc: "Architected a full-stack AI-powered Purchase Order Extractor implementing a hybrid LLM orchestration pipeline with Gemini 3.1 Flash and PyMuPDF for high-accuracy structured PDF data extraction and predictive analytics.",
-    tech: ["FastAPI", "Python", "React", "SQLAlchemy", "Docker"],
-    repo: "https://github.com/Akashsharma211",
-    demo: "https://github.com/Akashsharma211",
+    name: "TeachByEasy — Digital Lecture Creation Platform",
+    slug: "teachbyeasy",
+    desc: "Teacher-focused digital lecture creation platform eliminating slide formatting issues. Enables instant PPT/PDF import, built-in webcam recording, interactive writing & annotation tools, worksheet duplication, MP4 recording exports (with or without webcam), and annotated PDF downloads.",
+    tech: ["Next.js", "React", "TypeScript", "Tailwind CSS"],
+    repo: "https://github.com/Akashsharma211/Teachbyeasy",
+    demo: "https://drive.google.com/file/d/1YWA8qcfRirT97ow9FLm-Vjrh9jhulGi7/view?usp=sharing",
     category: "web-app",
   },
   {
@@ -100,8 +102,18 @@ export const PROJECTS: Project[] = [
     slug: "pause-distraction",
     desc: "Built a Chrome extension (Manifest V3) that tracks time spent on distracting websites, enforces user-defined limits, and redirects to a motivational 'Time’s Up' page. Implemented smart time-tracking, local storage privacy, configurable domain blocking, and lightweight alarms for efficient performance.",
     tech: ["JavaScript", "Chrome", "HTML", "CSS"],
-    repo: "https://github.com/Akashsharma211",
-    demo: "https://github.com/Akashsharma211",
+    repo: "https://github.com/Akashsharma211/Pause-Distraction-v1.0",
+    demo: "https://akashsharma211.github.io/Website-for-using-PD/",
+    video: "https://drive.google.com/file/d/1F9WVLdZ_JmIelFsXaGkV7mZQRM-nkt6S/view?usp=sharing",
+    category: "web-app",
+  },
+  {
+    name: "KEY — Data-Driven Keyword & Metadata Generation Tool",
+    slug: "key-generator",
+    desc: "A powerful web-based keyword generation tool designed to help content creators, marketers, and website owners improve discoverability and maximize engagement across platforms like YouTube, Instagram, and search engines.",
+    tech: ["JavaScript", "React", "HTML", "CSS", "Tailwind CSS"],
+    repo: "https://github.com/Akashsharma211/Key",
+    video: "https://drive.google.com/file/d/1BIHkh1ch8TI8w5owv4-VXiF0HQBf6fPo/view?usp=sharing",
     category: "web-app",
   },
 ];
