@@ -1,9 +1,9 @@
 "use client";
 
-import React, { useEffect, useState, useMemo } from "react";
+import React, { useEffect, useState } from "react";
 import ExperienceCard from "./ExperienceCard";
-import { useExperience, useResume, useProfile, useHobbies } from "@/lib/useSanityData";
-import { motion, AnimatePresence } from "motion/react";
+import { useExperience, useResume, useProfile } from "@/lib/useSanityData";
+import { motion } from "motion/react";
 
 export type OpenAppFn = (app: "about" | "projects" | "skills" | "contact" | "terminal" | "tetris") => void;
 
@@ -11,7 +11,6 @@ type View = "about" | "experience";
 
 export default function AboutHome({ onOpen }: { onOpen: OpenAppFn }) {
   const [currentView, setCurrentView] = useState<View>("about");
-  const [showUniverseModal, setShowUniverseModal] = useState(false);
 
   const [isMobile, setIsMobile] = useState(false);
 
@@ -33,83 +32,7 @@ export default function AboutHome({ onOpen }: { onOpen: OpenAppFn }) {
   const experience = useExperience();
   const resume = useResume();
   const profile = useProfile();
-  const hobbiesData = useHobbies();
 
-  const HOBBY_METADATA: Record<string, {
-    icon: string;
-    badge: string;
-    gradient: string;
-    borderColor: string;
-    highlight: string;
-    tagline: string;
-    desc: string;
-  }> = {
-    Gaming: {
-      icon: "🎮",
-      badge: "Action RPGs • Soulslike",
-      gradient: "from-red-950/40 via-zinc-900/60 to-black/80",
-      borderColor: "border-red-500/30 hover:border-red-400/60",
-      highlight: "text-red-300",
-      tagline: "\"Rise, Tarnished.\" — Elden Ring",
-      desc: "Conquering punishing boss fights, mastering dodge frames, and exploring vast lore-rich worlds.",
-    },
-    Chess: {
-      icon: "♟️",
-      badge: "1200+ Elo • Blitz / Rapid",
-      gradient: "from-blue-950/40 via-zinc-900/60 to-black/80",
-      borderColor: "border-blue-500/30 hover:border-blue-400/60",
-      highlight: "text-blue-300",
-      tagline: "1200+ on Chess.com",
-      desc: "Tactical openings, rapid & blitz calculation, calculated gambits, and converting dynamic positions.",
-    },
-    Cats: {
-      icon: "🐱",
-      badge: "Chief Companion • Debugger",
-      gradient: "from-amber-950/40 via-zinc-900/60 to-black/80",
-      borderColor: "border-amber-500/30 hover:border-amber-400/60",
-      highlight: "text-amber-300",
-      tagline: "Permanently chosen by feline royalty",
-      desc: "Certified cat whisperer. Providing purr-powered debugging support and unconditional lap comfort.",
-    },
-    Cooking: {
-      icon: "🍳",
-      badge: "Culinary Alchemy • Spices",
-      gradient: "from-emerald-950/40 via-zinc-900/60 to-black/80",
-      borderColor: "border-emerald-500/30 hover:border-emerald-400/60",
-      highlight: "text-emerald-300",
-      tagline: "Alchemy, to satisfy my hunger",
-      desc: "Treating cooking like alchemy: balancing complex spices, temperature control, and precision plating.",
-    },
-  };
-
-  const parsedHobbies = useMemo(() => {
-    const list = hobbiesData && hobbiesData.length > 0 ? hobbiesData : [
-      "Gaming — \"Rise, Tarnished.\" - Elden Ring",
-      "Chess — 1200+ on Chess.com",
-      "Cats — Permanently chosen by at least one feline",
-      "Cooking — Alchemy, to satisfy my hunger"
-    ];
-
-    return list.map(item => {
-      const [rawTitle, rawQuote] = item.split(" — ");
-      const title = rawTitle?.replace(/^[^\w]*/, "").trim() || item;
-      const quote = rawQuote?.trim() || "";
-      const meta = HOBBY_METADATA[title] || {
-        icon: "✨",
-        badge: "Creative Pursuit",
-        gradient: "from-purple-950/40 via-zinc-900/60 to-black/80",
-        borderColor: "border-purple-500/30 hover:border-purple-400/60",
-        highlight: "text-purple-300",
-        tagline: quote || "Exploring passions beyond the screen",
-        desc: "Pursuing curious creative quests, offline crafts, and personal hobbies.",
-      };
-      return {
-        title,
-        quote: quote || meta.tagline,
-        ...meta
-      };
-    });
-  }, [hobbiesData]);
 
   const renderAbout = () => {
 
@@ -242,8 +165,10 @@ export default function AboutHome({ onOpen }: { onOpen: OpenAppFn }) {
 
             {/* Akash's Universe Button - 3D Skeuomorphic Glossy Black Capsule */}
             <motion.div variants={itemVariants} className={isMobile ? "pl-0 pt-2" : "pl-2 pt-2"}>
-              <motion.button
-                onClick={() => setShowUniverseModal(true)}
+              <motion.a
+                href="/hobbies"
+                target="_blank"
+                rel="noopener noreferrer"
                 whileHover={{ scale: 1.035, y: -1.5 }}
                 whileTap={{ scale: 0.96, y: 1 }}
                 className="group relative inline-flex items-center justify-center cursor-pointer select-none rounded-full p-[2.5px] transition-all duration-300"
@@ -283,11 +208,14 @@ export default function AboutHome({ onOpen }: { onOpen: OpenAppFn }) {
                   <div className="absolute inset-0 -translate-x-full group-hover:translate-x-full transition-transform duration-1000 ease-out bg-gradient-to-r from-transparent via-white/12 to-transparent pointer-events-none" />
 
                   {/* Button Label */}
-                  <span className="relative z-10 font-bold text-xs sm:text-sm text-white tracking-[0.16em] uppercase drop-shadow-[0_1px_3px_rgba(0,0,0,0.95)]">
-                    Akash&apos;s Universe
+                  <span className="relative z-10 font-bold text-xs sm:text-sm text-white tracking-[0.16em] uppercase drop-shadow-[0_1px_3px_rgba(0,0,0,0.95)] flex items-center gap-2">
+                    <span>Akash&apos;s Universe</span>
+                    <svg className="w-3.5 h-3.5 opacity-70 group-hover:opacity-100 group-hover:translate-x-0.5 transition-all" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
+                    </svg>
                   </span>
                 </div>
-              </motion.button>
+              </motion.a>
             </motion.div>
 
           </motion.div>
@@ -333,177 +261,6 @@ export default function AboutHome({ onOpen }: { onOpen: OpenAppFn }) {
     <div className="h-full w-full relative">
       {currentView === "about" && renderAbout()}
       {currentView === "experience" && renderExperience()}
-
-      {/* Akash's Universe Modal */}
-      <AnimatePresence>
-        {showUniverseModal && (
-          <div 
-            className="fixed inset-0 z-[100] flex items-center justify-center p-3 sm:p-4 bg-black/85 backdrop-blur-md"
-            onClick={(e) => {
-              if (e.target === e.currentTarget) setShowUniverseModal(false);
-            }}
-          >
-            <motion.div
-              initial={{ opacity: 0, scale: 0.92, y: 15 }}
-              animate={{ opacity: 1, scale: 1, y: 0 }}
-              exit={{ opacity: 0, scale: 0.92, y: 15 }}
-              transition={{ duration: 0.22, ease: "easeOut" }}
-              className="relative w-full max-w-2xl max-h-[90vh] overflow-y-auto bg-[#0c0d14]/95 border border-purple-500/35 rounded-3xl p-5 sm:p-7 shadow-[0_0_60px_rgba(168,85,247,0.25)] scrollbar-thin scrollbar-thumb-white/10"
-            >
-              {/* Cosmic ambient light */}
-              <div className="absolute top-0 left-1/2 -translate-x-1/2 w-3/4 h-28 bg-gradient-to-b from-purple-600/25 via-indigo-600/10 to-transparent blur-3xl pointer-events-none" />
-
-              {/* Close Button */}
-              <button
-                onClick={() => setShowUniverseModal(false)}
-                className="absolute top-4 right-4 sm:top-5 sm:right-5 w-8 h-8 flex items-center justify-center rounded-full bg-white/5 border border-white/10 text-zinc-400 hover:text-white hover:bg-white/10 transition-colors z-20 cursor-pointer"
-                aria-label="Close"
-              >
-                ✕
-              </button>
-
-              {/* Header */}
-              <div className="relative z-10 mb-6 pr-8">
-                <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-purple-500/15 border border-purple-500/30 text-purple-300 text-xs font-semibold uppercase tracking-wider mb-2.5">
-                  <span>🌌</span> Akash&apos;s Universe
-                </div>
-                <h2 className="text-2xl sm:text-3xl font-black text-white tracking-tight">
-                  Hobbies &amp; Offline Quests
-                </h2>
-                <p className="text-zinc-400 text-xs sm:text-sm mt-1.5 leading-relaxed">
-                  What fuels my curiosity when I&apos;m not writing code — gaming challenges, tactical chess battles, feline companions, and culinary alchemy.
-                </p>
-              </div>
-
-              {/* Hobbies Showcase Grid */}
-              <div className="relative z-10 grid grid-cols-1 sm:grid-cols-2 gap-3.5 mb-6">
-                {parsedHobbies.map((hobby, idx) => (
-                  <motion.div
-                    key={idx}
-                    initial={{ opacity: 0, y: 10 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ delay: idx * 0.06 }}
-                    className={`relative p-4 sm:p-4.5 rounded-2xl bg-gradient-to-br ${hobby.gradient} border ${hobby.borderColor} shadow-lg transition-all duration-300 hover:scale-[1.02] group overflow-hidden`}
-                  >
-                    {/* Top Row: Icon + Title + Badge */}
-                    <div className="flex items-start justify-between gap-2 mb-2.5">
-                      <div className="flex items-center gap-2.5">
-                        <span className="text-2xl sm:text-3xl p-2 rounded-xl bg-white/[0.06] border border-white/10 shadow-inner">
-                          {hobby.icon}
-                        </span>
-                        <div>
-                          <h3 className="text-base sm:text-lg font-bold text-white tracking-wide group-hover:text-purple-200 transition-colors">
-                            {hobby.title}
-                          </h3>
-                          <span className="text-[11px] font-medium text-zinc-400">
-                            {hobby.badge}
-                          </span>
-                        </div>
-                      </div>
-                    </div>
-
-                    {/* Quote / Highlight Tag */}
-                    <div className="mb-2 px-2.5 py-1 rounded-lg bg-black/40 border border-white/5 inline-block max-w-full">
-                      <p className={`text-xs font-mono font-medium ${hobby.highlight} truncate`}>
-                        {hobby.quote}
-                      </p>
-                    </div>
-
-                    {/* Description */}
-                    <p className="text-xs text-zinc-300/90 leading-relaxed">
-                      {hobby.desc}
-                    </p>
-                  </motion.div>
-                ))}
-              </div>
-
-              {/* Key Highlights / Stats */}
-              <div className="relative z-10 grid grid-cols-2 sm:grid-cols-4 gap-2.5 mb-6">
-                <div className="p-3 rounded-xl bg-white/[0.03] border border-white/5 text-center">
-                  <div className="text-lg sm:text-xl font-black text-purple-300">8+</div>
-                  <div className="text-[10px] text-zinc-400 uppercase tracking-wider font-medium mt-0.5">Hackathons</div>
-                </div>
-                <div className="p-3 rounded-xl bg-white/[0.03] border border-white/5 text-center">
-                  <div className="text-lg sm:text-xl font-black text-purple-300">Top 10</div>
-                  <div className="text-[10px] text-zinc-400 uppercase tracking-wider font-medium mt-0.5">In 3 Events</div>
-                </div>
-                <div className="p-3 rounded-xl bg-white/[0.03] border border-white/5 text-center">
-                  <div className="text-lg sm:text-xl font-black text-purple-300">8.62</div>
-                  <div className="text-[10px] text-zinc-400 uppercase tracking-wider font-medium mt-0.5">B.Tech CGPA</div>
-                </div>
-                <div className="p-3 rounded-xl bg-white/[0.03] border border-white/5 text-center">
-                  <div className="text-lg sm:text-xl font-black text-purple-300">AI &amp; SDE</div>
-                  <div className="text-[10px] text-zinc-400 uppercase tracking-wider font-medium mt-0.5">Focus</div>
-                </div>
-              </div>
-
-              {/* Quick Portals */}
-              <div className="relative z-10 space-y-2">
-                <div className="text-[11px] uppercase tracking-wider font-semibold text-zinc-400 mb-1.5 pl-0.5">
-                  Quick Portals
-                </div>
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
-                  <button
-                    onClick={() => {
-                      setShowUniverseModal(false);
-                      onOpen("projects");
-                    }}
-                    className="flex items-center justify-between p-3 rounded-xl bg-white/[0.03] hover:bg-purple-600/15 border border-white/5 hover:border-purple-500/40 text-left transition-all group cursor-pointer"
-                  >
-                    <div>
-                      <div className="text-xs sm:text-sm font-semibold text-white group-hover:text-purple-200">🚀 Projects Galaxy</div>
-                      <div className="text-[11px] text-zinc-400">Freelance &amp; Web Apps</div>
-                    </div>
-                    <span className="text-purple-400 opacity-60 group-hover:opacity-100 group-hover:translate-x-0.5 transition-all text-xs">→</span>
-                  </button>
-
-                  <button
-                    onClick={() => {
-                      setShowUniverseModal(false);
-                      onOpen("skills");
-                    }}
-                    className="flex items-center justify-between p-3 rounded-xl bg-white/[0.03] hover:bg-purple-600/15 border border-white/5 hover:border-purple-500/40 text-left transition-all group cursor-pointer"
-                  >
-                    <div>
-                      <div className="text-xs sm:text-sm font-semibold text-white group-hover:text-purple-200">⚡ Skills Constellation</div>
-                      <div className="text-[11px] text-zinc-400">Languages &amp; Frameworks</div>
-                    </div>
-                    <span className="text-purple-400 opacity-60 group-hover:opacity-100 group-hover:translate-x-0.5 transition-all text-xs">→</span>
-                  </button>
-
-                  <button
-                    onClick={() => {
-                      setShowUniverseModal(false);
-                      onOpen("terminal");
-                    }}
-                    className="flex items-center justify-between p-3 rounded-xl bg-white/[0.03] hover:bg-purple-600/15 border border-white/5 hover:border-purple-500/40 text-left transition-all group cursor-pointer"
-                  >
-                    <div>
-                      <div className="text-xs sm:text-sm font-semibold text-white group-hover:text-purple-200">💻 Terminal CLI</div>
-                      <div className="text-[11px] text-zinc-400">ZSH shell, Breach &amp; hacks</div>
-                    </div>
-                    <span className="text-purple-400 opacity-60 group-hover:opacity-100 group-hover:translate-x-0.5 transition-all text-xs">→</span>
-                  </button>
-
-                  <button
-                    onClick={() => {
-                      setShowUniverseModal(false);
-                      onOpen("contact");
-                    }}
-                    className="flex items-center justify-between p-3 rounded-xl bg-white/[0.03] hover:bg-purple-600/15 border border-white/5 hover:border-purple-500/40 text-left transition-all group cursor-pointer"
-                  >
-                    <div>
-                      <div className="text-xs sm:text-sm font-semibold text-white group-hover:text-purple-200">📡 Transmission / Contact</div>
-                      <div className="text-[11px] text-zinc-400">Email, Socials &amp; Phone</div>
-                    </div>
-                    <span className="text-purple-400 opacity-60 group-hover:opacity-100 group-hover:translate-x-0.5 transition-all text-xs">→</span>
-                  </button>
-                </div>
-              </div>
-            </motion.div>
-          </div>
-        )}
-      </AnimatePresence>
     </div>
   );
 }
