@@ -16,6 +16,10 @@ const walterTurncoat = Walter_Turncoat({
 export const metadata: Metadata = {
   title: "Akash Kumar Sharma",
   description: "Portfolio of Akash Kumar Sharma",
+  icons: {
+    icon: "/logo.png",
+    apple: "/logo.png",
+  },
 };
 
 export default function RootLayout({
